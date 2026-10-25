@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { resend, SENDER_EMAIL, BCC_EMAIL } from "@/lib/resend";
+import { resend, SENDER_EMAIL, ADMIN_EMAIL } from "@/lib/resend";
 import {
   getWaitlistEmailHtml,
   getWaitlistEmailText,
+  getAdminNotificationEmailHtml,
+  getAdminNotificationEmailText,
 } from "@/lib/email-template";
 
 export async function POST(request: NextRequest) {
@@ -25,25 +27,58 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await resend.emails.send({
+    const subscriberPromise = resend.emails.send({
       from: SENDER_EMAIL,
       to: [email],
-      ...(BCC_EMAIL ? { bcc: [BCC_EMAIL] } : {}),
       subject: "You're on the TruHired waitlist",
       html: getWaitlistEmailHtml(email),
       text: getWaitlistEmailText(email),
     });
 
-    if (error) {
+    const adminPromise = ADMIN_EMAIL
+      ? resend.emails.send({
+          from: SENDER_EMAIL,
+          to: [ADMIN_EMAIL],
+          subject: `🚀 New Waitlist Signup: ${email}`,
+          html: getAdminNotificationEmailHtml(email),
+          text: getAdminNotificationEmailText(email),
+        })
+      : Promise.resolve({ data: null, error: null });
+
+    const [subscriberResult, adminResult] = await Promise.allSettled([
+      subscriberPromise,
+      adminPromise,
+    ]);
+
+    const subscriberError =
+      subscriberResult.status === "rejected"
+        ? subscriberResult.reason
+        : subscriberResult.value.error;
+
+    const adminError =
+      adminResult.status === "rejected"
+        ? adminResult.reason
+        : adminResult.value.error;
+
+    if (subscriberError && adminError) {
+      const errorMessage =
+        subscriberError?.message ||
+        adminError?.message ||
+        "Failed to dispatch emails.";
       return NextResponse.json(
-        { success: false, error: error.message },
+        { success: false, error: errorMessage },
         { status: 500 }
       );
     }
 
+    const subscriberData =
+      subscriberResult.status === "fulfilled"
+        ? subscriberResult.value.data
+        : null;
+
     return NextResponse.json({
       success: true,
-      id: data?.id,
+      id: subscriberData?.id,
     });
   } catch (err: unknown) {
     const message =
