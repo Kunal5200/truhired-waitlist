@@ -1,69 +1,129 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useMemo } from "react";
+import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { nunito, stack_sana } from "@/lib/fonts";
+import Antigravity from "@/components/background/Antigravity";
+import AtmosphereGlow from "@/components/landing/AtmosphereGlow";
+import PlanetHorizon from "@/components/landing/PlanetHorizon";
+import EarlyAccessBadge from "@/components/landing/EarlyAccessBadge";
+import HeroHeading from "@/components/landing/HeroHeading";
+import HeroSubtitle from "@/components/landing/HeroSubtitle";
+import WaitlistForm from "@/components/landing/WaitlistForm";
 
 export default function Home() {
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: "dark",
+          background: {
+            default: "#060913",
+            paper: "rgba(30, 41, 59, 0.45)",
+          },
+          text: {
+            primary: "#ffffff",
+            secondary: "#94a3b8",
+          },
+        },
+        typography: {
+          fontFamily: nunito.style.fontFamily,
+          h1: {
+            fontFamily: stack_sana.style.fontFamily,
+          },
+          button: {
+            fontFamily: stack_sana.style.fontFamily,
+          },
+        },
+      }),
+    []
+  );
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+        component="main"
+        sx={{
+          position: "relative",
+          minHeight: "100vh",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+          background:
+            "radial-gradient(circle at 50% 25%, #0c1222 0%, #070b16 45%, #04060c 85%, #020306 100%)",
+          px: { xs: 2, sm: 3 },
+          py: 4,
+          userSelect: "none",
+        }}
+      >
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 1,
+            pointerEvents: "auto",
+          }}
+        >
+          <Antigravity
+            count={1100}
+            particleShape="sphere"
+            particleSize={0.32}
+            colors={[
+              "#fef3c7",
+              "#fed7aa",
+              "#fce7f3",
+              "#f3e8ff",
+              "#e0e7ff",
+              "#e0f2fe",
+            ]}
+            colorMode="vertical"
+            ambient={0.25}
+            ringRadius={3.5}
+            magnetRadius={5.0}
+            waveSpeed={0.35}
+            waveAmplitude={0.5}
+            rotationSpeed={0.05}
+            depthFactor={1.3}
+            pulseSpeed={2.2}
+            particleVariance={1.1}
+            autoAnimate={true}
+            interactive={true}
+            clickBurst={true}
+            opacity={0.52}
+          />
+        </Box>
+
+        <AtmosphereGlow />
+        <PlanetHorizon />
+
+        <Box
+          component="section"
+          sx={{
+            position: "relative",
+            zIndex: 10,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            maxWidth: 960,
+            width: "100%",
+            mt: { xs: -2, md: -6 },
+            pointerEvents: "auto",
+          }}
+        >
+          <EarlyAccessBadge />
+          <HeroHeading />
+          <HeroSubtitle />
+          <WaitlistForm />
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
