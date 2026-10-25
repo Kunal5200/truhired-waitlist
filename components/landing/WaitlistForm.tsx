@@ -18,7 +18,7 @@ export default function WaitlistForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanEmail = email.trim();
 
@@ -38,9 +38,32 @@ export default function WaitlistForm() {
     setStatus("loading");
     setErrorMessage("");
 
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: cleanEmail }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        setStatus("error");
+        setErrorMessage(
+          data.error || "Unable to join the waitlist. Please try again."
+        );
+        return;
+      }
+
       setStatus("success");
-    }, 900);
+    } catch {
+      setStatus("error");
+      setErrorMessage(
+        "Network error. Please check your connection and try again."
+      );
+    }
   };
 
   const handleReset = () => {
@@ -78,7 +101,7 @@ export default function WaitlistForm() {
                 color: "#6ee7b7",
               }}
             >
-              You&apos;re on the list! We&apos;ll notify you when we launch.
+              You&apos;re on the list! We&apos;ve sent a confirmation email.
             </Typography>
           </Box>
           <Button
