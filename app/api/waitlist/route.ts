@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { resend, SENDER_EMAIL } from "@/lib/resend";
+import { resend, SENDER_EMAIL, BCC_EMAIL } from "@/lib/resend";
 import {
   getWaitlistEmailHtml,
   getWaitlistEmailText,
@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
     const { data, error } = await resend.emails.send({
       from: SENDER_EMAIL,
       to: [email],
+      ...(BCC_EMAIL ? { bcc: [BCC_EMAIL] } : {}),
       subject: "You're on the TruHired waitlist",
       html: getWaitlistEmailHtml(email),
       text: getWaitlistEmailText(email),
