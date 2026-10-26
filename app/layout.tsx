@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { nunito, stack_sana } from "@/lib/fonts";
 import "./globals.css";
 
@@ -15,7 +16,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${stack_sana.variable} ${nunito.variable}`}>
-      <body className={nunito.className}>{children}</body>
+      <body className={nunito.className}>
+        {children}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-22SXLN63S9"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-22SXLN63S9');
+            `,
+          }}
+        />
+      </body>
     </html>
   );
 }
