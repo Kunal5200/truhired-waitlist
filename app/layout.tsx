@@ -4,9 +4,22 @@ import { nunito, stack_sana } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Something Extraordinary Is Coming Soon",
+  title: "TruHired — Next-Gen Career & Hiring Platform",
   description:
-    "Be the first to know when we launch. Join our community of early supporters and get exclusive updates.",
+    "Join the TruHired waitlist. Experience a smarter, extraordinary way to connect top talent with dream opportunities.",
+  openGraph: {
+    title: "TruHired — Next-Gen Career & Hiring Platform",
+    description:
+      "Join the TruHired waitlist. Experience a smarter, extraordinary way to connect top talent with dream opportunities.",
+    siteName: "TruHired",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TruHired — Next-Gen Career & Hiring Platform",
+    description:
+      "Join the TruHired waitlist. Experience a smarter, extraordinary way to connect top talent with dream opportunities.",
+  },
   icons: {
     icon: [
       {
