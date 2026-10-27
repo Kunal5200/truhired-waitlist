@@ -1,9 +1,16 @@
+export const TRUHIRED_LOGO_WHITE_URL =
+  "https://n4eazadwqvk73hyo.public.blob.vercel-storage.com/truhired-logo-white.png";
+export const TRUHIRED_LOGO_BLACK_URL =
+  "https://n4eazadwqvk73hyo.public.blob.vercel-storage.com/truhired-logo-black.png";
+
 export function getWaitlistEmailHtml(email: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
   <title>Welcome to the TruHired Waitlist</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #04060b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f8fafc;">
@@ -14,6 +21,17 @@ export function getWaitlistEmailHtml(email: string): string {
           
           <tr>
             <td style="padding: 40px 36px 20px 36px; text-align: center;">
+              <div style="margin-bottom: 22px;">
+                <a href="https://truhired.in" target="_blank" style="text-decoration: none; display: inline-block;">
+                  <img
+                    src="${TRUHIRED_LOGO_WHITE_URL}"
+                    alt="TruHired"
+                    width="145"
+                    height="61"
+                    style="display: block; border: 0; outline: none; text-decoration: none; width: 145px; max-width: 145px; height: auto; margin: 0 auto;"
+                  />
+                </a>
+              </div>
               <div style="display: inline-block; padding: 6px 16px; border-radius: 9999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #e2e8f0; font-weight: 600;">
                 Early Access Confirmed
               </div>
@@ -99,6 +117,8 @@ export function getAdminNotificationEmailHtml(subscriberEmail: string): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
   <title>New Waitlist Signup</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #04060b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f8fafc;">
@@ -109,6 +129,17 @@ export function getAdminNotificationEmailHtml(subscriberEmail: string): string {
           
           <tr>
             <td style="padding: 40px 36px 20px 36px; text-align: center;">
+              <div style="margin-bottom: 22px;">
+                <a href="https://truhired.in" target="_blank" style="text-decoration: none; display: inline-block;">
+                  <img
+                    src="${TRUHIRED_LOGO_WHITE_URL}"
+                    alt="TruHired"
+                    width="145"
+                    height="61"
+                    style="display: block; border: 0; outline: none; text-decoration: none; width: 145px; max-width: 145px; height: auto; margin: 0 auto;"
+                  />
+                </a>
+              </div>
               <div style="display: inline-block; padding: 6px 16px; border-radius: 9999px; background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.3); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #93c5fd; font-weight: 600;">
                 Admin Notification
               </div>
