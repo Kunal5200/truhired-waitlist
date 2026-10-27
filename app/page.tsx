@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { nunito, stack_sana } from "@/lib/fonts";
 import Antigravity from "@/components/background/Antigravity";
+import Navbar from "@/components/landing/Navbar";
 import AtmosphereGlow from "@/components/landing/AtmosphereGlow";
 import PlanetHorizon from "@/components/landing/PlanetHorizon";
 import EarlyAccessBadge from "@/components/landing/EarlyAccessBadge";
@@ -60,6 +61,8 @@ export default function Home() {
           userSelect: "none",
         }}
       >
+        <Navbar />
+
         <Box
           aria-hidden="true"
           sx={{
