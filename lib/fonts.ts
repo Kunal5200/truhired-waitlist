@@ -12,4 +12,3 @@ export const nunito = Nunito({
   variable: "--font-nunito",
   display: "swap",
 });
-
