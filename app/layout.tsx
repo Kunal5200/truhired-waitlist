@@ -4,7 +4,7 @@ import { nunito, stack_sana } from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://truhired.in"),
+  metadataBase: new URL("https://www.truhired.in"),
   title: "TruHired — Next-Gen Career & Hiring Platform",
   description:
     "Join the TruHired waitlist. Experience a smarter, extraordinary way to connect top talent with dream opportunities.",
